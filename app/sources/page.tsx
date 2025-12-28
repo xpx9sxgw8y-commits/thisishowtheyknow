@@ -47,3 +47,4 @@ function ConceptCard({ icon, title, description }: any) {
   )
 }
 
+
