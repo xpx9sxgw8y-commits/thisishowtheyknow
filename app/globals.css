@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-gray-900;
+  }
+}
+
+@layer components {
+  .article-card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300;
+  }
+  
+  .section-title {
+    @apply text-2xl font-bold text-secondary mb-6 pb-3 border-b-2 border-primary;
+  }
+
+  .prose h2 {
+    @apply text-2xl font-bold text-secondary mt-8 mb-4;
+  }
+
+  .prose h3 {
+    @apply text-xl font-bold text-secondary mt-6 mb-3;
+  }
+
+  .prose p {
+    @apply mb-4 text-gray-700 leading-relaxed;
+  }
+
+  .prose ul {
+    @apply mb-4 pl-6 list-disc;
+  }
+
+  .prose li {
+    @apply mb-2 text-gray-700;
+  }
+
+  .prose strong {
+    @apply font-bold text-secondary;
+  }
+}
+

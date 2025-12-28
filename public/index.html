@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This Is How They Know - Media Analysis & Fact-Checking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #CC0000;
+            --primary-dark: #990000;
+            --secondary: #1a1a1a;
+        }
+        .article-card {
+            transition: all 0.3s ease;
+        }
+        .article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-white border-b-4 border-red-600 shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="/" class="flex items-center space-x-2">
+                    <i class="fas fa-shield-alt text-red-600 text-2xl"></i>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-red-600">THIS IS HOW THEY KNOW</span>
+                        <span class="text-xs text-gray-600 -mt-1">Media Analysis & Fact-Checking</span>
+                    </div>
+                </a>
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="/" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-gray-50 rounded-md">Home</a>
+                    <a href="/fact-check.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-gray-50 rounded-md">Fact Check</a>
+                    <a href="/sources.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-gray-50 rounded-md">Source Analysis</a>
+                    <a href="/literacy.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-gray-50 rounded-md">Media Literacy</a>
+                    <a href="/about.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-gray-50 rounded-md">About</a>
+                </nav>
+            </div>
+            <div class="bg-red-600 text-white py-2 px-4 flex items-center space-x-3">
+                <i class="fas fa-fire animate-pulse"></i>
+                <span class="text-sm font-semibold">BREAKING:</span>
+                <span class="text-sm flex-1 truncate">New fact-checking tools now available - Verify sources in real-time</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Hero Section -->
+        <div class="mb-12">
+            <h1 class="text-5xl font-bold text-gray-900 mb-4">This Is How They Know</h1>
+            <p class="text-xl text-gray-600 max-w-3xl">
+                Uncovering the truth behind the headlines. Fact-checking, source verification, 
+                and media analysis to help you understand how news organizations verify information.
+            </p>
+        </div>
+
+        <!-- Fact Check Banner -->
+        <div class="bg-gradient-to-r from-red-600 to-red-800 rounded-lg p-8 mb-12 text-white">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="flex items-center justify-center space-x-2 mb-4">
+                    <i class="fas fa-check-circle text-3xl"></i>
+                    <h2 class="text-3xl font-bold">Verify Any Claim</h2>
+                </div>
+                <p class="text-lg mb-6 opacity-90">
+                    Enter a claim, headline, or statement to see our fact-checking analysis and source verification
+                </p>
+                <form id="verifyForm" class="flex gap-2">
+                    <input 
+                        type="text" 
+                        id="claimInput"
+                        placeholder="Paste a claim or headline to verify..."
+                        class="flex-1 pl-4 pr-4 py-4 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+                    />
+                    <button 
+                        type="submit"
+                        class="bg-white text-red-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                    >
+                        Verify
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Featured Article -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-red-600">Featured Analysis</h2>
+            <div id="featuredArticle" class="bg-white rounded-lg shadow-md overflow-hidden">
+                <!-- Featured article will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Articles Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-2">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-red-600">Latest Fact-Checks</h2>
+                <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Articles will be loaded here -->
+                </div>
+            </div>
+            <div class="space-y-8">
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Source Analysis</h3>
+                    <div id="sourceArticles" class="space-y-4">
+                        <!-- Source articles will be loaded here -->
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Media Literacy</h3>
+                    <div id="literacyArticles" class="space-y-4">
+                        <!-- Literacy articles will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-shield-alt text-red-600 text-xl"></i>
+                        <span class="text-xl font-bold text-white">THIS IS HOW THEY KNOW</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">
+                        Your trusted source for media analysis, fact-checking, and source verification.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/fact-check.html" class="hover:text-red-600">Fact Check</a></li>
+                        <li><a href="/sources.html" class="hover:text-red-600">Source Analysis</a></li>
+                        <li><a href="/literacy.html" class="hover:text-red-600">Media Literacy</a></li>
+                        <li><a href="/about.html" class="hover:text-red-600">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2024 This Is How They Know. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load featured article
+        async function loadFeaturedArticle() {
+            try {
+                const response = await fetch('/api/articles/featured');
+                const article = await response.json();
+                const container = document.getElementById('featuredArticle');
+                container.innerHTML = `
+                    <a href="/article.html?id=${article.id}" class="block group">
+                        <div class="relative h-96 overflow-hidden bg-gradient-to-br from-red-600 to-red-800">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center text-white p-8">
+                                    <h3 class="text-3xl font-bold mb-4">${article.title}</h3>
+                                    <p class="text-lg opacity-90">${article.excerpt}</p>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 left-4 flex items-center space-x-2">
+                                ${article.verified ? '<span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold"><i class="fas fa-check-circle mr-1"></i>Verified</span>' : ''}
+                                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">${article.category}</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                                <div class="flex items-center space-x-4">
+                                    <span><i class="fas fa-user mr-1"></i>${article.author}</span>
+                                    <span><i class="fas fa-clock mr-1"></i>${article.readTime}</span>
+                                </div>
+                                ${article.sources ? `<span class="text-red-600 font-semibold">${article.sources} sources verified</span>` : ''}
+                            </div>
+                            <p class="text-gray-700 leading-relaxed">${article.excerpt}</p>
+                            <div class="mt-4 text-red-600 font-semibold group-hover:underline">Read Full Analysis →</div>
+                        </div>
+                    </a>
+                `;
+            } catch (error) {
+                console.error('Error loading featured article:', error);
+            }
+        }
+
+        // Load articles
+        async function loadArticles(category, containerId, limit) {
+            try {
+                const url = `/api/articles?category=${category || ''}&limit=${limit || ''}`;
+                const response = await fetch(url);
+                const articles = await response.json();
+                const container = document.getElementById(containerId);
+                
+                if (containerId === 'articlesGrid') {
+                    container.innerHTML = articles.map(article => `
+                        <a href="/article.html?id=${article.id}" class="article-card bg-white rounded-lg shadow-md p-6 block group">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-semibold">${article.category}</span>
+                                ${article.verified ? '<i class="fas fa-check-circle text-green-500"></i>' : ''}
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600">${article.title}</h3>
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-3">${article.excerpt}</p>
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <div class="flex items-center space-x-3">
+                                    <span>${article.author}</span>
+                                    <span>•</span>
+                                    <span>${article.readTime}</span>
+                                    ${article.sources ? `<span>•</span><span>${article.sources} sources</span>` : ''}
+                                </div>
+                            </div>
+                        </a>
+                    `).join('');
+                } else {
+                    container.innerHTML = articles.slice(0, 4).map(article => `
+                        <a href="/article.html?id=${article.id}" class="block group">
+                            <div class="flex items-start space-x-3">
+                                ${article.verified ? '<i class="fas fa-check-circle text-green-500 mt-1"></i>' : ''}
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-sm font-semibold text-gray-900 group-hover:text-red-600 line-clamp-2">${article.title}</h4>
+                                    <p class="text-xs text-gray-500 mt-1">${article.author} • ${new Date(article.date).toLocaleDateString()}</p>
+                                </div>
+                            </div>
+                        </a>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error(`Error loading ${category} articles:`, error);
+            }
+        }
+
+        // Verify form handler
+        document.getElementById('verifyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const claim = document.getElementById('claimInput').value;
+            if (claim.trim()) {
+                try {
+                    const response = await fetch('/api/fact-check/verify', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ claim })
+                    });
+                    const result = await response.json();
+                    alert(`Verification Status: ${result.status}\n${result.message}`);
+                } catch (error) {
+                    console.error('Error verifying claim:', error);
+                }
+            }
+        });
+
+        // Load all content on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFeaturedArticle();
+            loadArticles('fact-check', 'articlesGrid', 6);
+            loadArticles('Source Analysis', 'sourceArticles', 4);
+            loadArticles('Media Literacy', 'literacyArticles', 4);
+        });
+    </script>
+</body>
+</html>
+

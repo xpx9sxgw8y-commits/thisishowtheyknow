@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fact Check - This Is How They Know</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white">
+    <header class="bg-white border-b-4 border-red-600 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="/" class="flex items-center space-x-2">
+                    <i class="fas fa-shield-alt text-red-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-red-600">THIS IS HOW THEY KNOW</span>
+                </a>
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="/" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">Home</a>
+                    <a href="/fact-check.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">Fact Check</a>
+                    <a href="/sources.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">Source Analysis</a>
+                    <a href="/literacy.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">Media Literacy</a>
+                    <a href="/about.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Fact Check</h1>
+            <p class="text-xl text-gray-600 max-w-3xl">
+                Verified claims, debunked misinformation, and transparent fact-checking analysis.
+            </p>
+        </div>
+
+        <div id="stats" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <!-- Stats will be loaded here -->
+        </div>
+
+        <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Articles will be loaded here -->
+        </div>
+    </main>
+
+    <script>
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/fact-check/stats');
+                const stats = await response.json();
+                document.getElementById('stats').innerHTML = `
+                    <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-red-600">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-check-circle text-4xl text-green-500"></i>
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Claims Verified</p>
+                                <p class="text-3xl font-bold text-gray-900">${stats.verified.toLocaleString()}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-red-600">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-exclamation-triangle text-4xl text-yellow-500"></i>
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Misleading Claims</p>
+                                <p class="text-3xl font-bold text-gray-900">${stats.misleading.toLocaleString()}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-red-600">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-times-circle text-4xl text-red-500"></i>
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">False Claims</p>
+                                <p class="text-3xl font-bold text-gray-900">${stats.false.toLocaleString()}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadArticles() {
+            try {
+                const response = await fetch('/api/articles?category=Fact Check');
+                const articles = await response.json();
+                document.getElementById('articlesGrid').innerHTML = articles.map(article => `
+                    <a href="/article.html?id=${article.id}" class="article-card bg-white rounded-lg shadow-md p-6 block group">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-semibold">${article.category}</span>
+                            ${article.verified ? '<i class="fas fa-check-circle text-green-500"></i>' : ''}
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600">${article.title}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${article.excerpt}</p>
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <span>${article.author} • ${article.readTime}</span>
+                        </div>
+                    </a>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading articles:', error);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            loadArticles();
+        });
+    </script>
+</body>
+</html>
+

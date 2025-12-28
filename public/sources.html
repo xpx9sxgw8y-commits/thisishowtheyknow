@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Source Analysis - This Is How They Know</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white">
+    <header class="bg-white border-b-4 border-red-600 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="/" class="flex items-center space-x-2">
+                    <i class="fas fa-shield-alt text-red-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-red-600">THIS IS HOW THEY KNOW</span>
+                </a>
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="/" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">Home</a>
+                    <a href="/fact-check.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">Fact Check</a>
+                    <a href="/sources.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">Source Analysis</a>
+                    <a href="/literacy.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">Media Literacy</a>
+                    <a href="/about.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Source Analysis</h1>
+            <p class="text-xl text-gray-600 max-w-3xl">
+                Understanding how to verify sources, analyze credibility, and identify reliable information.
+            </p>
+        </div>
+
+        <div id="concepts" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <!-- Concepts will be loaded here -->
+        </div>
+
+        <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Articles will be loaded here -->
+        </div>
+    </main>
+
+    <script>
+        async function loadConcepts() {
+            try {
+                const response = await fetch('/api/sources/concepts');
+                const concepts = await response.json();
+                const iconMap = { shield: 'shield-alt', check: 'check-circle', file: 'file-alt' };
+                document.getElementById('concepts').innerHTML = concepts.map(concept => `
+                    <div class="bg-gradient-to-br from-gray-50 to-white rounded-lg p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                        <i class="fas fa-${iconMap[concept.icon] || 'shield-alt'} text-4xl text-red-600 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${concept.title}</h3>
+                        <p class="text-gray-600">${concept.description}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading concepts:', error);
+            }
+        }
+
+        async function loadArticles() {
+            try {
+                const response = await fetch('/api/articles?category=Source Analysis');
+                const articles = await response.json();
+                document.getElementById('articlesGrid').innerHTML = articles.map(article => `
+                    <a href="/article.html?id=${article.id}" class="article-card bg-white rounded-lg shadow-md p-6 block group">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-semibold">${article.category}</span>
+                            ${article.verified ? '<i class="fas fa-check-circle text-green-500"></i>' : ''}
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600">${article.title}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${article.excerpt}</p>
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <span>${article.author} • ${article.readTime}</span>
+                        </div>
+                    </a>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading articles:', error);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadConcepts();
+            loadArticles();
+        });
+    </script>
+</body>
+</html>
+
